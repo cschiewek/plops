@@ -29,6 +29,9 @@ defmodule Plops.Router do
   scope "/", Plops do
     pipe_through [:browser, :authentication]
 
-    get "/settings", UserController, :edit
+    get "settings", UserController, :edit
+    patch "settings", UserController, :update
+    put "settings", UserController, :update
+    delete "settings", UserController, :delete
   end
 end

@@ -5,12 +5,15 @@ defmodule Plops.User do
     field :name, :string
     field :github_login, :string
     field :access_token, :string
+    field :enabled, :boolean
+    field :slackbot_url, :string
+    field :mark_as_read, :boolean
 
     timestamps
   end
 
   @required_fields ~w(name github_login access_token)
-  @optional_fields ~w()
+  @optional_fields ~w(enabled slackbot_url mark_as_read)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

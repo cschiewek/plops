@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <h1>Plops</h1>
-  <p class="lead">Plops GitHub notifications to Slack.</p>
+  <p class="lead">Send GitHub notifications to Slack.</p>
   <p>
     <%= link "Sign in with GitHub", to: authentication_path(@conn, :index), class: "btn btn-primary btn-lg" %>
   </p>
