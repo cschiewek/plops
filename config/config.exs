@@ -7,7 +7,14 @@ use Mix.Config
 
 # Configures the endpoint
 config :plops, Plops.Endpoint,
-  url: [host: "localhost"],
+  url: [
+    host: System.get_env("PLOPS_HOST") || "localhost",
+    port: System.get_env("PLOPS_PORT") || "4000"
+  ],
+  github: [
+    id: System.get_env("PLOPS_GITHUB_ID"),
+    secret: System.get_env("PLOPS_GITHUB_SECRET")
+  ],
   root: Path.dirname(__DIR__),
   secret_key_base: "ZDYbdIBYeIg06BI5mw7GYhxr8AVfvoTJEj58lxbil+0RyH80ZtHjxtoiU5QrVn5F",
   render_errors: [accepts: ~w(html json)],
