@@ -14,6 +14,14 @@
   <% end %>
 
   <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      You can filter which notifications Plops grabs via GitHub's
+      <%= link "Notification Center", to: "https://github.com/settings/notifications" %>.
+      The "Web" notifications corresponds to what gets pulled in here.
+    </div>
+  </div>
+
+  <div class="form-group">
     <label class="col-sm-2 control-label">Slack Username</label>
     <div class="col-sm-10">
       <%= text_input f, :slack_username, class: "form-control" %>

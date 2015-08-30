@@ -1,5 +1,7 @@
 defmodule Plops.User do
   use Plops.Web, :model
+  alias Plops.Repo
+  alias Plops.User
 
   schema "users" do
     field :name, :string
@@ -26,4 +28,6 @@ defmodule Plops.User do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  def enabled, do: Repo.all(from user in User, where: user.enabled)
 end
