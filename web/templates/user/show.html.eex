@@ -1,0 +1,12 @@
+<h1>Current Notifications for <%= @user.github_login %></h1>
+<hr />
+
+<%= if @notifications do %>
+  <ul class="list-group">
+    <%= for notification <- @notifications do %>
+      <li class="list-group-item"><%= notification %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You currently do not have any notifications.</p>
+<% end %>

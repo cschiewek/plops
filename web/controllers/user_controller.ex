@@ -2,7 +2,13 @@ defmodule Plops.UserController do
   use Plops.Web, :controller
   alias Plops.User
 
-  plug :scrub_params, "user" when action in [:create, :update]
+  plug :scrub_params, "user" when action in [:update]
+
+  def show(conn, _) do
+    user = Repo.get(User, conn.assigns.current_user.id)
+    notifications = GitHub.Client.notifications(user.access_token)
+    render(conn, "show.html", user: user, notifications: notifications)
+  end
 
   def edit(conn, _) do
     user = Repo.get(User, conn.assigns.current_user.id)
