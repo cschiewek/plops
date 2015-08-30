@@ -14,16 +14,28 @@
   <% end %>
 
   <div class="form-group">
-    <label class="col-sm-2 control-label">Slackbot URL</label>
+    <label class="col-sm-2 control-label">Slack Domain</label>
     <div class="col-sm-10">
-      <%= text_input f, :slackbot_url, class: "form-control", placeholder: "https://domain.slack.com/services/hooks/slackbot?token=" %>
+      <%= text_input f, :slack_domain, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
     <label class="col-sm-2 control-label">Slack Username</label>
     <div class="col-sm-10">
-      <%= text_input f, :slack_username, class: "form-control", placeholder: "firstname.lastname" %>
+      <%= text_input f, :slack_username, class: "form-control" %>
+      <p class="help-block">Do not include the @ symbol.</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Slackbot Token</label>
+    <div class="col-sm-10">
+      <%= text_input f, :slackbot_token, class: "form-control" %>
+      <p class="help-block">
+        Plops uses the "Post messages as Slackbot" integration.  Please ask your Slack
+        admin to configure this integration and give you the token.
+      </p>
     </div>
   </div>
 
@@ -31,7 +43,9 @@
     <label class="col-sm-2 control-label">Enabled</label>
     <div class="col-sm-10">
       <%= checkbox f, :enabled, class: "form-control" %>
+      <p class="help-block">Check this to enable automatic sending of notifications<p>
     </div>
+
   </div>
 
   <div class="form-group">
@@ -39,8 +53,8 @@
     <div class="col-sm-10">
       <%= checkbox f, :mark_as_read, class: "form-control" %>
       <p class="help-block">
-        Turn this on if you would like Github notifications to be marked as read
-        when they are forwared to Slack.
+        Check this if you would like Github notifications to be marked as read
+        when they are sent to Slack.
       </p>
     </div>
   </div>
@@ -51,7 +65,6 @@
 <% end %>
 
 <div class="pull-right">
-  <%= link "View Notifications", to: user_path(@conn, :show), class: "btn btn-success" %>
   <%= link "Delete Account", to: user_path(@conn, :delete), class: "btn btn-danger", method: :delete %>
 </div>
 

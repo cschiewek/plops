@@ -22,7 +22,7 @@ defmodule Plops.UserController do
 
     case Repo.update(changeset) do
       {:ok, user} ->
-        # TODO: Send test message to slack, wrapped in Task
+        Slack.send_test(user)
         message = "User updated successfully.  A test message was sent to slack.
                    If you did not get a message from Plops in Slack, please check your settings"
         conn
