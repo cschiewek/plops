@@ -1,19 +1,15 @@
 <h1>Current Notifications for <%= @user.github_login %></h1>
 <hr />
 
-<%= if @notifications do %>
-  <%= for notification <- @notifications do %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <%= notification["subject"]["type"] %> on
-        <strong><%= notification["repository"]["full_name"] %></strong>:
-        <%= link notification["subject"]["title"], to: notification["subject"]["url"] %>
-      </div>
-      <div class="panel-body">
-        <%= raw latest_comment(notification, @user) %>
-      </div>
+<%= for notification <- @notifications do %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= notification["subject"]["type"] %> on
+      <strong><%= notification["repository"]["full_name"] %></strong>:
+      <%= link notification["subject"]["title"], to: html_url(notification, @user) %>
     </div>
-  <% end %>
-<% else %>
-  <p>You currently do not have any notifications.</p>
+    <div class="panel-body">
+      <%= latest_comment(notification, @user) %>
+    </div>
+  </div>
 <% end %>

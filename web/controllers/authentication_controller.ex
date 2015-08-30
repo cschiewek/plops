@@ -23,7 +23,7 @@ defmodule Plops.AuthenticationController do
     conn
     |> put_session(:current_user, user)
     |> put_session(:access_token, token.access_token)
-    |> redirect(to: user_path(conn, :edit))
+    |> redirect(to: user_path(conn, :show))
   end
 
   def signout(conn, _params) do

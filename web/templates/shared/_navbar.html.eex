@@ -12,6 +12,8 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <%= if @conn.assigns[:current_user] do %>
+          <li><%= link "Notifications", to: user_path(@conn, :show) %></li>
+          <li><%= link "Settings", to: user_path(@conn, :edit) %></li>
           <li><%= link "Signout", to: authentication_path(@conn, :signout) %></li>
         <% end %>
       </ul>
