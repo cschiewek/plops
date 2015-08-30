@@ -6,7 +6,7 @@ defmodule Plops.UserController do
 
   def show(conn, _) do
     user = Repo.get(User, conn.assigns.current_user.id)
-    notifications = GitHub.Client.notifications(user.access_token)
+    notifications = GitHub.Client.notifications(user.access_token) 
     render(conn, "show.html", user: user, notifications: notifications)
   end
 

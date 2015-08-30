@@ -50,8 +50,10 @@
       <%= submit "Update", class: "btn btn-primary" %>
 <% end %>
 
-<%= link "Delete Account", to: user_path(@conn, :delete),
-       class: "btn btn-danger pull-right", method: :delete %>
+<div class="pull-right">
+  <%= link "View Notifications", to: user_path(@conn, :show), class: "btn btn-success" %>
+  <%= link "Delete Account", to: user_path(@conn, :delete), class: "btn btn-danger", method: :delete %>
+</div>
 
 </div>
 </div>

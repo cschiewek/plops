@@ -3,7 +3,13 @@ defmodule GitHub.Client do
 
   def notifications(token) do
     headers = %{ "Authorization" => "token #{token}" }
-    get!("notifications", headers).body[:data]
+    get!("notifications", headers).body
+  end
+
+  def get_url(url, token) do
+    headers = %{ "Authorization" => "token #{token}" }
+    url = String.replace(url, "https://api.github.com/", "")
+    get!(url, headers).body
   end
 
   defp process_url(url) do
@@ -13,6 +19,5 @@ defmodule GitHub.Client do
   defp process_response_body(body) do
     body
     |> Poison.decode!
-    |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
   end
 end
