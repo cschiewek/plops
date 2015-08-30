@@ -17,7 +17,7 @@ config :plops, Plops.Endpoint,
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 # Configure your database
-config :my_app, Plops.Repo,
+config :plops, Plops.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
   size: 20 # The amount of database connections in the pool
