@@ -14,7 +14,9 @@
 <% end %>
 
 <%= if configured? @user do %>
-  <%= link "Send To Slack", to: user_path(@conn, :send), class: "btn btn-lg btn-primary" %>
+  <%= unless Enum.empty?(@notifications) do %>
+    <%= link "Send to Slack", to: user_path(@conn, :send), class: "btn btn-lg btn-primary" %>
+  <% end %>
 <% else %>
   <%= link "Configure your settings!", to: user_path(@conn, :edit), class: "btn btn-lg btn-warning" %>
 <% end %>

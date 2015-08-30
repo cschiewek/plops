@@ -12,7 +12,9 @@
 
   <body>
     <div class="container" role="main">
-      <%= render Plops.SharedView, "_navbar.html", conn: @conn %>
+      <%= unless @conn.private[:phoenix_controller] == Plops.PageController do %>
+        <%= render Plops.SharedView, "_navbar.html", conn: @conn %>
+      <% end %>
       <%= render Plops.SharedView, "_flashes.html", conn: @conn %>
       <%= @inner %>
     </div> <!-- /container -->

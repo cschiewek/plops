@@ -12,12 +12,19 @@ defmodule GitHub.Client do
     get!(url, headers).body
   end
 
+  def mark_as_read(token) do
+    headers = %{ "Authorization" => "token #{token}" }
+    put!("notifications", "{}", headers)
+  end
+
   defp process_url(url) do
     "https://api.github.com/" <> url
   end
 
   defp process_response_body(body) do
-    body
-    |> Poison.decode!
+    unless body == "" do
+      body
+      |> Poison.decode!
+    end
   end
 end

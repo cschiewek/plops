@@ -6,9 +6,13 @@ defmodule Slack do
     _send(user, body)
   end
 
-  def send_notifications(user, notifications) do
-    body = Poison.encode! %{ attachments: attachments(user, notifications) }
-    _send(user, body)
+  def send_notifications(user) do
+    notifications = GitHub.Client.notifications(user.access_token)
+    unless Enum.empty?(notifications) do
+      body = Poison.encode! %{ attachments: attachments(user, notifications) }
+      _send(user, body)
+      if user.mark_as_read, do: GitHub.Client.mark_as_read(user.access_token)
+    end
   end
 
   defp _send(user, body) do

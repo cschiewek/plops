@@ -12,10 +12,8 @@ defmodule Plops.UserController do
 
   def send(conn, _) do
     user = Repo.get(User, conn.assigns.current_user.id)
-    #Task.start fn ->
-      notifications = GitHub.Client.notifications(user.access_token)
-      Slack.send_notifications(user, notifications)
-    #end
+    Task.start fn -> Slack.send_notifications(user) end
+    
     conn
     |> put_flash(:info, "Notifications sent!")
     |> redirect(to: user_path(conn, :show))
