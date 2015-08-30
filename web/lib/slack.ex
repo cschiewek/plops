@@ -15,6 +15,10 @@ defmodule Slack do
     end
   end
 
+  def send_to_enabled do
+    for user <- Plops.User.enabled, do: Task.start(fn -> send_notifications(user) end)
+  end
+
   defp _send(user, body) do
     params = %{ channel: "@#{user.slack_username}" }
     post!(user.slack_webhook_url, body, [], params: params)

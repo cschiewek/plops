@@ -18,7 +18,7 @@ defmodule Plops.Mixfile do
   def application do
     [mod: {Plops, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :oauth2]]
+                    :phoenix_ecto, :postgrex, :oauth2, :quantum]]
   end
 
   # Specifies which paths to compile per environment
@@ -35,6 +35,7 @@ defmodule Plops.Mixfile do
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:oauth2, "~> 0.3.0"}]
+     {:oauth2, "~> 0.3.0"},
+     {:quantum, "~> 1.3.2"}]
   end
 end

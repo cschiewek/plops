@@ -21,6 +21,12 @@ config :plops, Plops.Endpoint,
   pubsub: [name: Plops.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+# Configure the schedule!
+config :quantum, cron: [
+    # Every minute
+    "* * * * *": { Slack, :send_to_enabled }
+]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
