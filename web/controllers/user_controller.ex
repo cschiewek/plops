@@ -10,6 +10,17 @@ defmodule Plops.UserController do
     render(conn, "show.html", user: user, notifications: notifications)
   end
 
+  def send(conn, _) do
+    user = Repo.get(User, conn.assigns.current_user.id)
+    #Task.start fn ->
+      notifications = GitHub.Client.notifications(user.access_token)
+      Slack.send_notifications(user, notifications)
+    #end
+    conn
+    |> put_flash(:info, "Notifications sent!")
+    |> redirect(to: user_path(conn, :show))
+  end
+
   def edit(conn, _) do
     user = Repo.get(User, conn.assigns.current_user.id)
     changeset = User.changeset(user)
@@ -22,7 +33,7 @@ defmodule Plops.UserController do
 
     case Repo.update(changeset) do
       {:ok, user} ->
-        Slack.send_test(user)
+        Task.start fn -> Slack.send_test(user) end
         message = "User updated successfully.  A test message was sent to slack.
                    If you did not get a message from Plops in Slack, please check your settings"
         conn

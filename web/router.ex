@@ -30,6 +30,7 @@ defmodule Plops.Router do
     pipe_through [:browser, :authentication]
 
     get "notifications", UserController, :show
+    get "send", UserController, :send
     get "settings", UserController, :edit
     patch "settings", UserController, :update
     put "settings", UserController, :update

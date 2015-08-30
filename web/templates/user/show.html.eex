@@ -1,15 +1,20 @@
-<h1>Current Notifications for <%= @user.github_login %></h1>
+<h1>Notifications for <%= @user.github_login %></h1>
 <hr />
 
 <%= for notification <- @notifications do %>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <%= notification["subject"]["type"] %> on
-      <strong><%= notification["repository"]["full_name"] %></strong>:
+      <strong><%= notification["repository"]["full_name"] %></strong> <%= notification["subject"]["type"] %>
       <%= link notification["subject"]["title"], to: html_url(notification, @user) %>
     </div>
     <div class="panel-body">
       <%= latest_comment(notification, @user) %>
     </div>
   </div>
+<% end %>
+
+<%= if configured? @user do %>
+  <%= link "Send To Slack", to: user_path(@conn, :send), class: "btn btn-lg btn-primary" %>
+<% else %>
+  <%= link "Configure your settings!", to: user_path(@conn, :edit), class: "btn btn-lg btn-warning" %>
 <% end %>

@@ -9,4 +9,8 @@ defmodule Plops.UserView do
   def html_url(notification, user) do
     GitHub.Client.get_url(notification["subject"]["url"], user.access_token)["html_url"]
   end
+
+  def configured?(user) do
+    user.slack_webhook_url && user.slack_username
+  end
 end

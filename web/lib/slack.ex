@@ -2,19 +2,33 @@ defmodule Slack do
   use HTTPoison.Base
 
   def send_test(user) do
-    url = "https://#{user.slack_domain}.slack.com/services/hooks/slackbot"
-    message = "Congratulations! You've correctly configured Plops!"
-    params = %{ token: user.slackbot_token, channel: "@#{user.slack_username}" }
-    post!(url, message, [], params: params)
+    body = Poison.encode! %{ text: "Congratulations! You've correctly configured Plops!" }
+    _send(user, body)
   end
 
+  def send_notifications(user, notifications) do
+    body = Poison.encode! %{ attachments: attachments(user, notifications) }
+    _send(user, body)
+  end
 
-  # defp process_url(url) do
-  #   "https://api.github.com/" <> url
-  # end
-  #
-  # defp process_response_body(body) do
-  #   body
-  #   |> Poison.decode!
-  # end
+  defp _send(user, body) do
+    params = %{ channel: "@#{user.slack_username}" }
+    post!(user.slack_webhook_url, body, [], params: params)
+  end
+
+  defp attachments(user, notifications) do
+    notifications
+    |> Enum.map(fn(n) -> attachement(user, n) end)
+  end
+
+  defp attachement(user, notification) do
+    subject = notification["subject"]
+    html_url = GitHub.Client.get_url(subject["url"], user.access_token)["html_url"]
+    %{
+      pretext: "*#{notification["repository"]["full_name"]}* #{subject["type"]}",
+      title: "<#{html_url}|#{subject["title"]}>",
+      text: Plops.UserView.latest_comment(notification, user),
+      mrkdwn_in: ["text", "pretext"]
+    }
+  end
 end
