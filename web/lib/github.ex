@@ -9,7 +9,7 @@ defmodule GitHub do
   def new do
     url = Application.get_env(:plops, Plops.Endpoint)[:url]
     github = Application.get_env(:plops, Plops.Endpoint)[:github]
-    scheme = Application.get_env(:plops, Plops.Endpoint)[:url][:port] == 80 && "http" || "https"
+    scheme = Application.get_env(:plops, Plops.Endpoint)[:url][:port] == 443 && "https" || "http"
     OAuth2.new([
       strategy: __MODULE__,
       client_id: github[:id], client_secret: github[:secret],
