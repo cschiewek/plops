@@ -36,6 +36,7 @@ defmodule Plops.Mixfile do
      {:phoenix_live_reload, "~> 1.0.1", only: :dev},
      {:cowboy, "~> 1.0.3"},
      {:oauth2, "~> 0.3.0"},
-     {:quantum, "~> 1.5.0"}]
+     {:quantum, "~> 1.5.0"},
+     {:exrm, "~> 0.19.6"}]
   end
 end

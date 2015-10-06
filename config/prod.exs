@@ -19,8 +19,14 @@ config :plops, Plops.Endpoint,
 # Configure your database
 config :plops, Plops.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: System.get_env("DATABASE_URL"),
+  username: "postgres",
+  password: "postgres",
+  database: "plops",
   size: 20 # The amount of database connections in the pool
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+# Finally import the config/prod.secret.exs
+# which should be versioned separately.
+import_config "prod.secret.exs"
