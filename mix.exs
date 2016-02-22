@@ -29,14 +29,14 @@ defmodule Plops.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 1.0.3"},
-     {:phoenix_ecto, "~> 1.2.0"},
-     {:postgrex, "~> 0.9.1"},
-     {:phoenix_html, "~> 2.2.0"},
-     {:phoenix_live_reload, "~> 1.0.1", only: :dev},
-     {:cowboy, "~> 1.0.3"},
-     {:oauth2, "~> 0.3.0"},
-     {:quantum, "~> 1.5.0"},
-     {:exrm, "~> 0.19.6"}]
+    [{:phoenix, "~> 1.1.4"},
+     {:phoenix_ecto, "~> 2.0.1"},
+     {:postgrex, "~> 0.11.0"},
+     {:phoenix_html, "~> 2.5.0"},
+     {:phoenix_live_reload, "~> 1.0.3", only: :dev},
+     {:cowboy, "~> 1.0.4"},
+     {:oauth2, "~> 0.5.0"},
+     {:quantum, "~> 1.6.1"},
+     {:mandrag, "~> 0.1.1"}]
   end
 end

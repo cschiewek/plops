@@ -20,7 +20,7 @@
         <%= render Plops.SharedView, "_navbar.html", conn: @conn %>
       <% end %>
       <%= render Plops.SharedView, "_flashes.html", conn: @conn %>
-      <%= @inner %>
+      <%= render @view_module, @view_template, assigns %>
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>

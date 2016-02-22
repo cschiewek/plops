@@ -10,7 +10,7 @@ defmodule GitHub do
     url = Application.get_env(:plops, Plops.Endpoint)[:url]
     github = Application.get_env(:plops, Plops.Endpoint)[:github]
     scheme = Application.get_env(:plops, Plops.Endpoint)[:url][:port] == 443 && "https" || "http"
-    OAuth2.new([
+    OAuth2.Client.new([
       strategy: __MODULE__,
       client_id: github[:id], client_secret: github[:secret],
       redirect_uri: "#{scheme}://#{url[:host]}:#{url[:port]}/authentication/callback",

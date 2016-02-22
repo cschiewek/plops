@@ -11,7 +11,8 @@ defmodule Plops.AuthenticationController do
     token = GitHub.get_token!(code: code)
 
     # Request the user's data with the access token
-    github_user = OAuth2.AccessToken.get!(token, "/user")
+    github_user = OAuth2.AccessToken.get!(token, "/user").body
+
     # Find or create user
     user = Repo.get_by(User, github_login: github_user["login"])
     if user do
