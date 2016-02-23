@@ -17,8 +17,8 @@ defmodule Plops.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Plops, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :oauth2, :quantum]]
+     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :phoenix_ecto, :postgrex, :oauth2, :quantum, :earmark,
+                    :mandrag]]
   end
 
   # Specifies which paths to compile per environment
