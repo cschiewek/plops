@@ -3,7 +3,7 @@ defmodule Plops.AuthenticationController do
   alias Plops.User
 
   def index(conn, _params) do
-    redirect conn, external: GitHub.authorize_url!(scope: "notifications")
+    redirect conn, external: GitHub.authorize_url!(scope: "repo")
   end
 
   def callback(conn, %{"code" => code}) do

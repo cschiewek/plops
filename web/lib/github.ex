@@ -7,13 +7,10 @@ defmodule GitHub do
 
   # Public API
   def new do
-    url = Application.get_env(:plops, Plops.Endpoint)[:url]
     github = Application.get_env(:plops, Plops.Endpoint)[:github]
-    scheme = Application.get_env(:plops, Plops.Endpoint)[:url][:port] == 443 && "https" || "http"
     OAuth2.Client.new([
       strategy: __MODULE__,
       client_id: github[:id], client_secret: github[:secret],
-      redirect_uri: "#{scheme}://#{url[:host]}:#{url[:port]}/authentication/callback",
       site: "https://api.github.com",
       authorize_url: "https://github.com/login/oauth/authorize",
       token_url: "https://github.com/login/oauth/access_token"
