@@ -37,6 +37,7 @@ defmodule Plops.Mixfile do
      {:cowboy, "~> 1.0.4"},
      {:oauth2, "~> 0.5.0"},
      {:quantum, "~> 1.6.1"},
+     {:earmark, "~> 0.2.1"},
      {:mandrag, "~> 0.1.1"}]
   end
 end
