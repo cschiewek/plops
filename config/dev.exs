@@ -40,4 +40,4 @@ config :plops, Plops.Repo,
   database: "plops_dev",
   pool_size: 10
 
-import_config "dev.secret.exs"
+File.exists?("config/local.secret.exs") && import_config "local.secret.exs"
