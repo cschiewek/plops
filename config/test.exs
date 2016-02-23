@@ -15,7 +15,7 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :plops, Plops.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("DATABASE_POSTGRESQL_USERNAME") || "postgres",
+  password: System.get_env("DATABASE_POSTGRESQL_PASSWORD") || "postgres",
   database: "plops_test",
   pool: Ecto.Adapters.SQL.Sandbox
