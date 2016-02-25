@@ -30,4 +30,15 @@ defmodule Plops.User do
   end
 
   def enabled, do: Repo.all(from user in User, where: user.enabled)
+
+  def create_or_update_from_auth(auth) do
+    params = %{name: auth.info.name, access_token: auth.credentials.token}
+    case Repo.get_by(__MODULE__, github_login: auth.info.nickname) do
+      nil ->
+        new_params = Map.put_new(params, :github_login, auth.info.nickname)
+        changeset(%User{}, new_params) |> Repo.insert
+      user ->
+        changeset(user, params) |> Repo.update
+    end
+  end
 end

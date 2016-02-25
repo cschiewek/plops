@@ -35,4 +35,6 @@
   "ranch": {:hex, :ranch, "1.2.1"},
   "relx": {:hex, :relx, "3.5.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
-  "tentacat": {:hex, :tentacat, "0.1.5"}}
+  "tentacat": {:hex, :tentacat, "0.1.5"},
+  "ueberauth": {:hex, :ueberauth, "0.2.0"},
+  "ueberauth_github": {:hex, :ueberauth_github, "0.2.0"}}

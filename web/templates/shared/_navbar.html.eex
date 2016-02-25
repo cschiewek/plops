@@ -14,7 +14,7 @@
         <%= if @conn.assigns[:current_user] do %>
           <li><%= link "Notifications", to: user_path(@conn, :show) %></li>
           <li><%= link "Settings", to: user_path(@conn, :edit) %></li>
-          <li><%= link "Signout", to: authentication_path(@conn, :signout) %></li>
+          <li><%= link "Logout", to: authentication_path(@conn, :logout) %></li>
         <% end %>
       </ul>
     </div><!--/.nav-collapse -->

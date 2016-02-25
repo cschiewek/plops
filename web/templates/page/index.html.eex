@@ -8,6 +8,6 @@
   </p>
   <p><em>Yes, I know Slack already has an excellent GitHub integration, but it is repo focused. I wanted a way to get my user notifications in Slack, hence Plops.</em>
   <p>
-    <%= link "Sign in with GitHub", to: authentication_path(@conn, :index), class: "btn btn-primary btn-lg" %>
+    <%= link "Sign in with GitHub", to: authentication_path(@conn, :request, :github), class: "btn btn-primary btn-lg" %>
   </p>
 </div>

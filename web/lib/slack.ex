@@ -7,11 +7,11 @@ defmodule Slack do
   end
 
   def send_notifications(user) do
-    notifications = GitHub.Client.notifications(user.access_token)
+    notifications = GitHub.notifications(user.access_token)
     unless Enum.empty?(notifications) do
       body = Poison.encode! %{ attachments: attachments(user, notifications) }
       _send(user, body)
-      if user.mark_as_read, do: GitHub.Client.mark_as_read(user.access_token)
+      if user.mark_as_read, do: GitHub.mark_as_read(user.access_token)
     end
   end
 
@@ -31,7 +31,7 @@ defmodule Slack do
 
   defp attachement(user, notification) do
     subject = notification["subject"]
-    html_url = GitHub.Client.get_url(subject["url"], user.access_token)["html_url"]
+    html_url = GitHub.get_url(subject["url"], user.access_token)["html_url"]
     %{
       pretext: "*#{notification["repository"]["full_name"]}* #{subject["type"]}",
       title: "<#{html_url}|#{subject["title"]}>",

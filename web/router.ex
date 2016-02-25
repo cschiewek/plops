@@ -12,7 +12,7 @@ defmodule Plops.Router do
   end
 
   pipeline :authentication do
-    plug :authenticate
+    plug :authorize
   end
 
   # Anonymouse routes
@@ -20,15 +20,22 @@ defmodule Plops.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "authentication", AuthenticationController, :index
-    get "authentication/callback", AuthenticationController, :callback
-    get "authentication/signout", AuthenticationController, :signout
+
+    scope "/auth" do
+      get "/:provider", AuthenticationController, :request
+      get "/:provider/callback", AuthenticationController, :callback
+    end
+    scope "/responses" do
+      get "/:token", RespondantController, :edit, as: :responses
+      put "/:token", RespondantController, :update, as: :responses
+    end
   end
 
   # Authenticated routes
   scope "/", Plops do
     pipe_through [:browser, :authentication]
 
+    delete "/auth/logout", AuthenticationController, :logout
     get "notifications", UserController, :show
     get "send", UserController, :send
     get "settings", UserController, :edit

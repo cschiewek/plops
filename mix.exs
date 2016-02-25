@@ -17,8 +17,8 @@ defmodule Plops.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Plops, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :phoenix_ecto, :postgrex, :oauth2, :quantum, :earmark,
-                    :mandrag]]
+     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :phoenix_ecto, :postgrex, :quantum, :earmark,
+                    :ueberauth, :ueberauth_github, :mandrag]]
   end
 
   # Specifies which paths to compile per environment
@@ -35,9 +35,10 @@ defmodule Plops.Mixfile do
      {:phoenix_html, "~> 2.5.0"},
      {:phoenix_live_reload, "~> 1.0.3", only: :dev},
      {:cowboy, "~> 1.0.4"},
-     {:oauth2, "~> 0.5.0"},
      {:quantum, "~> 1.6.1"},
      {:earmark, "~> 0.2.1"},
-     {:mandrag, "~> 0.1.1"}]
+     {:mandrag, "~> 0.1.1"},
+     {:ueberauth, "~> 0.2"},
+     {:ueberauth_github, "~> 0.2.0"}]
   end
 end

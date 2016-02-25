@@ -1,50 +1,37 @@
 defmodule Plops.AuthenticationController do
   use Plops.Web, :controller
   alias Plops.User
+  alias Ueberauth.Strategy.Helpers
+  plug Ueberauth
 
-  def index(conn, _params) do
-    redirect conn, external: GitHub.authorize_url!(scope: "repo")
+  def request(conn, _params) do
+    render(conn, "request.html", callback_url: Helpers.callback_url(conn))
   end
 
-  def callback(conn, %{"code" => code}) do
-    # Exchange an auth code for an access token
-    token = GitHub.get_token!(code: code)
-
-    # Request the user's data with the access token
-    github_user = OAuth2.AccessToken.get!(token, "/user").body
-
-    # Find or create user
-    user = Repo.get_by(User, github_login: github_user["login"])
-    if user do
-      user = update_user(user, token.access_token)
-    else
-      user = create_user(github_user, token.access_token)
-    end
-
+  def logout(conn, _params) do
     conn
-    |> put_session(:current_user, user)
-    |> put_session(:access_token, token.access_token)
-    |> redirect(to: user_path(conn, :show))
+    |> put_flash(:info, "You have been logged out.")
+    |> configure_session(drop: true)
+    |> redirect(to: "/")
   end
 
-  def signout(conn, _params) do
-    delete_session(conn, :current_user)
-    |> delete_session(:access_token)
-    |> put_flash(:info, "You have signed out.")
-    |> redirect(to: page_path(conn, :index))
+  def callback(%{ assigns: %{ ueberauth_failure: _fails } } = conn, _params) do
+    conn
+    |> put_flash(:error, "Failed to authenticate.")
+    |> redirect(to: "/")
   end
 
-  defp create_user(github_user, access_token) do
-    attributes = %{
-      name: github_user["name"], github_login: github_user["login"],
-      access_token: access_token
-    }
-    changeset = User.changeset(%User{}, attributes)
-    if changeset.valid?, do: user = changeset |> Repo.insert!
-  end
-
-  defp update_user(user, access_token) do
-    changeset = User.changeset(user, %{ access_token: access_token })
-    if changeset.valid?, do: user = changeset |> Repo.update!
+  def callback(%{ assigns: %{ ueberauth_auth: auth } } = conn, _params) do
+    case User.create_or_update_from_auth(auth) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Successfully authenticated.")
+        |> put_session(:current_user, user)
+        |> redirect(to: "/")
+      {:error, message} ->
+        conn
+        |> put_flash(:error, message)
+        |> redirect(to: "/")
+    end
   end
 end

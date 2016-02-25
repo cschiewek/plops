@@ -1,38 +1,30 @@
 defmodule GitHub do
-  @moduledoc """
-  An OAuth2 strategy for GitHub.
-  """
-  use OAuth2.Strategy
-  alias OAuth2.Strategy.AuthCode
+  use HTTPoison.Base
 
-  # Public API
-  def new do
-    github = Application.get_env(:plops, Plops.Endpoint)[:github]
-    OAuth2.Client.new([
-      strategy: __MODULE__,
-      client_id: github[:id], client_secret: github[:secret],
-      site: "https://api.github.com",
-      authorize_url: "https://github.com/login/oauth/authorize",
-      token_url: "https://github.com/login/oauth/access_token"
-    ])
+  def notifications(token) do
+    headers = %{ "Authorization" => "token #{token}" }
+    get!("notifications", headers).body
   end
 
-  def authorize_url!(params \\ []) do
-    OAuth2.Client.authorize_url!(new(), params)
+  def get_url(url, token) do
+    headers = %{ "Authorization" => "token #{token}" }
+    url = String.replace(url, "https://api.github.com/", "")
+    get!(url, headers).body
   end
 
-  def get_token!(params \\ [], headers \\ []) do
-    OAuth2.Client.get_token!(new(), params)
+  def mark_as_read(token) do
+    headers = %{ "Authorization" => "token #{token}" }
+    put!("notifications", "{}", headers)
   end
 
-  # Strategy Callbacks
-  def authorize_url(client, params) do
-    AuthCode.authorize_url(client, params)
+  defp process_url(url) do
+    "https://api.github.com/" <> url
   end
 
-  def get_token(client, params, headers) do
-    client
-    |> put_header("Accept", "application/json")
-    |> AuthCode.get_token(params, headers)
+  defp process_response_body(body) do
+    unless body == "" do
+      body
+      |> Poison.decode!
+    end
   end
 end
