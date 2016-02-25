@@ -36,7 +36,7 @@ defmodule Plops.User do
     case Repo.get_by(__MODULE__, github_login: auth.info.nickname) do
       nil ->
         new_params = Map.put_new(params, :github_login, auth.info.nickname)
-        changeset(%User{}, new_params) |> Repo.insert
+        changeset(__struct__, new_params) |> Repo.insert
       user ->
         changeset(user, params) |> Repo.update
     end
