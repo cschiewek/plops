@@ -3,11 +3,6 @@ body {
   padding-top: 40px;
 }
 
-body, form, ul, table {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 /* Phoenix flash messages */
 .alert:empty { display: none; }
 
