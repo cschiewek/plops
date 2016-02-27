@@ -2,9 +2,10 @@
   <h1>Plops</h1>
   <p class="lead">Send GitHub User notifications to Slack.</p>
   <p>
-    <a href="https://youtu.be/tb15u1FxxEM">
-      <img src="https://33.media.tumblr.com/2a64e77e06b7743e385ca8e8a9a37433/tumblr_mtnywvOirO1rcy5pco3_500.gif"  />
-    </a>
+    <iframe width="560" height="315"
+     src="https://www.youtube.com/embed/tb15u1FxxEM?rel=0&controls=0&showinfo=0&autoplay=1"
+     frameborder="0" allowfullscreen>
+   </iframe>
   </p>
   <p><em>Yes, I know Slack already has an excellent GitHub integration, but it is repo focused. I wanted a way to get my user notifications in Slack, hence Plops.</em>
   <p>

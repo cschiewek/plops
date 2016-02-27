@@ -15,9 +15,9 @@ defmodule Plops.AuthenticationController do
     |> redirect(to: "/")
   end
 
-  def callback(%{ assigns: %{ ueberauth_failure: _fails } } = conn, _params) do
+  def callback(%{ assigns: %{ ueberauth_failure: fails } } = conn, _params) do
     conn
-    |> put_flash(:error, "Failed to authenticate.")
+    |> put_flash(:error, "Failed to authenticate. #{fails}")
     |> redirect(to: "/")
   end
 
