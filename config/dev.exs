@@ -14,6 +14,9 @@ config :plops, Plops.Endpoint,
   check_origin: false,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
 
+# Configure repos
+config :plops, ecto_repos: [Plops.Repo]
+
 # Watch static and templates for browser reloading.
 config :plops, Plops.Endpoint,
   live_reload: [

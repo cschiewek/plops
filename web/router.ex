@@ -24,6 +24,7 @@ defmodule Plops.Router do
     scope "/auth" do
       get "/:provider", AuthenticationController, :request
       get "/:provider/callback", AuthenticationController, :callback
+      post "/:provider/callback", AuthenticationController, :callback
     end
     scope "/responses" do
       get "/:token", RespondantController, :edit, as: :responses
